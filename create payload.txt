@@ -1,0 +1,27 @@
+{
+  "movieId": 0,
+  "name": "Pulp Fiction",
+  "weight": 0,
+  "recommendations": [
+    {
+      "recommendationId": 0,
+      "author": "John",
+      "rate": 5,
+      "content": null
+    }
+  ],
+  "reviews": [
+    {
+      "reviewId": 0,
+      "author": "John",
+      "subject": "Fabolous movie",
+      "content": null
+    }
+  ],
+  "serviceAddresses": {
+    "cmp": "Clairvoyant-056/10.185.1.66:7000",
+    "mov": "Clairvoyant-056/10.185.1.66:7001",
+    "rev": "Clairvoyant-056/10.185.1.66:7003",
+    "rec": "Clairvoyant-056/10.185.1.66:7002"
+  }
+}

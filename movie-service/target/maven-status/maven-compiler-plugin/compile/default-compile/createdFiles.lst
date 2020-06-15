@@ -1,0 +1,6 @@
+se\pra\movie\MovieServiceApplication.class
+se\pra\movie\services\MovieMapper.class
+se\pra\movie\persistence\MovieEntity.class
+se\pra\movie\persistence\MovieRepository.class
+se\pra\movie\services\MovieMapperImpl.class
+se\pra\movie\services\MovieServiceImpl.class
