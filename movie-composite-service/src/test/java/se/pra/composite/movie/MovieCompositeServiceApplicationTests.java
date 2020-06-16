@@ -20,7 +20,7 @@ import se.pra.composite.movie.service.MovieCompositeIntegration;
 import se.pra.util.exception.InvalidInputException;
 import se.pra.util.exception.NotFoundException;
 
-@SpringBootTest(webEnvironment=RANDOM_PORT)
+@SpringBootTest(webEnvironment=RANDOM_PORT, properties = {"eureka.client.enabled=false"})
 class MovieCompositeServiceApplicationTests {
 
 	private static final int MOVIE_ID_OK = 1;

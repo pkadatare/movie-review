@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
@@ -28,36 +27,22 @@ import se.pra.util.http.HttpErrorInfo;
 public class MovieCompositeIntegration implements MovieService, ReviewService,
     RecommendationService {
 
-  private RestTemplate restTemplate;
-  private ObjectMapper mapper;
+  private final String movieServiceUrl = "http://movie";
+  private final String recommendationServiceUrl = "http://recommendation";
+  private final String reviewServiceUrl = "http://review";
 
-  private String movieServiceUrl;
-  private String reviewServiceUrl;
-  private String recommendationServiceUrl;
+  private ObjectMapper mapper;
+  private RestTemplate restTemplate;
 
   @Autowired
   public MovieCompositeIntegration(
       RestTemplate restTemplate,
-      ObjectMapper mapper,
-
-      @Value("${app.movie-service.host}") String movieServiceHost,
-      @Value("${app.movie-service.port}") int movieServicePort,
-
-      @Value("${app.recommendation-service.host}") String recommendationServiceHost,
-      @Value("${app.recommendation-service.port}") int recommendationServicePort,
-
-      @Value("${app.review-service.host}") String reviewServiceHost,
-      @Value("${app.review-service.port}") int reviewServicePort
+      ObjectMapper mapper
   ) {
 
     this.restTemplate = restTemplate;
+    //this.webClientBuilder = webClientBuilder;
     this.mapper = mapper;
-
-    movieServiceUrl = "http://" + movieServiceHost + ":" + movieServicePort + "/movie/";
-    recommendationServiceUrl =
-        "http://" + recommendationServiceHost + ":" + recommendationServicePort
-            + "/recommendation?movieId=";
-    reviewServiceUrl = "http://" + reviewServiceHost + ":" + reviewServicePort + "/review?movieId=";
   }
 
   @Override
@@ -81,7 +66,7 @@ public class MovieCompositeIntegration implements MovieService, ReviewService,
   public Movie getMovie(int movieId) {
 
     try {
-      String url = movieServiceUrl +  movieId;
+      String url = movieServiceUrl +"/movie/" +  movieId;
       log.debug("Will call the getMovie API on URL: {}", url);
 
       Movie movie = restTemplate.getForObject(url, Movie.class);
@@ -97,7 +82,7 @@ public class MovieCompositeIntegration implements MovieService, ReviewService,
   @Override
   public void deleteMovie(int movieId) {
     try {
-      String url = movieServiceUrl + "/" + movieId;
+      String url = movieServiceUrl + "/movie/" +  movieId;
       log.debug("Will call the deleteMovie API on URL: {}", url);
 
       restTemplate.delete(url);
@@ -128,7 +113,7 @@ public class MovieCompositeIntegration implements MovieService, ReviewService,
   public List<Recommendation> getRecommendations(int movieId) {
 
     try {
-      String url = recommendationServiceUrl + movieId;
+      String url = recommendationServiceUrl + "/recommendation?movieId=" +  movieId;
 
       log.debug("Will call the getRecommendations API on URL: {}", url);
       List<Recommendation> recommendations = restTemplate
@@ -149,7 +134,7 @@ public class MovieCompositeIntegration implements MovieService, ReviewService,
   @Override
   public void deleteRecommendations(int movieId) {
     try {
-      String url = recommendationServiceUrl + movieId;
+      String url = recommendationServiceUrl + "/recommendation?movieId=" +  movieId;
       log.debug("Will call the deleteRecommendations API on URL: {}", url);
 
       restTemplate.delete(url);
@@ -179,7 +164,7 @@ public class MovieCompositeIntegration implements MovieService, ReviewService,
   @Override
   public void deleteReviews(int movieId) {
     try {
-      String url = reviewServiceUrl + movieId;
+      String url = reviewServiceUrl + "/review?movieId=" +  movieId;
       log.debug("Will call the deleteReviews API on URL: {}", url);
 
       restTemplate.delete(url);
@@ -193,12 +178,12 @@ public class MovieCompositeIntegration implements MovieService, ReviewService,
   public List<Review> getReviews(int movieId) {
 
     try {
-      String url = reviewServiceUrl + movieId;
+      String url = reviewServiceUrl + "/review?movieId=" + movieId;
 
       log.debug("Will call the getReviews API on URL: {}", url);
       List<Review> reviews = restTemplate.exchange(url, GET, null, new ParameterizedTypeReference<List<Review>>() {}).getBody();
 
-      log.debug("Found {} reviews for a product with id: {}", reviews.size(), movieId);
+      log.debug("Found {} reviews for a movie with id: {}", reviews.size(), movieId);
       return reviews;
 
     } catch (Exception ex) {

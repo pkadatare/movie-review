@@ -13,7 +13,6 @@ api:
       email: pkadatare@gmail.com
 
   movie-composite:
-
     get-composite-movie:
       description: Returns a composite view of the specified movie id
       notes: |
@@ -68,16 +67,17 @@ api:
 
 server.port: 7000
 
-app:
-  movie-service:
-    host: localhost
-    port: 7001
-  recommendation-service:
-    host: localhost
-    port: 7002
-  review-service:
-    host: localhost
-    port: 7003
+spring.application.name: movie-composite
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    initialInstanceInfoReplicationIntervalSeconds: 5
+    registryFetchIntervalSeconds: 5
+  instance:
+    leaseRenewalIntervalInSeconds: 5
+    leaseExpirationDurationInSeconds: 5
 
 logging:
   level:

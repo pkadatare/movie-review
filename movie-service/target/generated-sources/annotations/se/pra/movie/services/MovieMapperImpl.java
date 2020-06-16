@@ -7,7 +7,7 @@ import se.pra.movie.persistence.MovieEntity;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-06-14T16:36:18+0530",
+    date = "2020-06-15T21:43:44+0530",
     comments = "version: 1.3.0.Beta2, compiler: javac, environment: Java 1.8.0_101 (Oracle Corporation)"
 )
 @Component

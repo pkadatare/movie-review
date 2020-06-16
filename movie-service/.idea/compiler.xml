@@ -7,13 +7,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="recommendation-service" />
         <module name="util" />
         <module name="api" />
         <module name="movie-composite-service" />
-        <module name="review-service" />
+        <module name="discovery-server" />
       </profile>
-      <profile name="Annotation profile for movie-service" enabled="true">
+      <profile name="Annotation profile for review-service" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -33,11 +32,14 @@
           <entry name="$MAVEN_REPOSITORY$/joda-time/joda-time/2.9/joda-time-2.9.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.4/lombok-1.18.4.jar" />
         </processorPath>
+        <module name="review-service" />
+        <module name="recommendation-service" />
         <module name="movie-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="api" target="1.8" />
+      <module name="discovery-server" target="1.8" />
       <module name="movie-composite-service" target="1.8" />
       <module name="movie-service" target="1.8" />
       <module name="recommendation-service" target="1.8" />
@@ -48,6 +50,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="api" options="-parameters" />
+      <module name="discovery-server" options="-parameters" />
       <module name="movie-composite-service" options="-parameters" />
       <module name="movie-service" options="-parameters" />
       <module name="recommendation-service" options="-parameters" />
